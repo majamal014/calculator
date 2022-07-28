@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.calc-container {
+    width: 400px;
+}
+
+
+.screen-container {
+    height: 50px;
+    background-color: gray;
+}
