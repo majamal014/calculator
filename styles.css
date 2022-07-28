@@ -1,16 +1,46 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+    
+
 .container {
     display: flex;
     justify-content: center;
-
 }
-
 
 .calc-container {
-    width: 400px;
+    width: 350px;
 }
 
-
 .screen-container {
-    height: 50px;
+    height: 100px;
     background-color: gray;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.previous-op {
+    font-size: 1.5em;
+    
+}
+
+.current-op {
+    font-size: 2em;
+}
+
+button {
+    font-size: 30px;
+    padding: 15px 0px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-row-span-2 {
+    grid-row: span 2;
 }
