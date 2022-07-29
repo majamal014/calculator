@@ -31,6 +31,7 @@ const previousOp = document.querySelector('.previous-op');
 
 // Initialize var with a number button
 let lastPressed = document.querySelector('.number');
+
 let lastOperation = undefined;
 let previousNum = 0;
 let currentNum = 0;
@@ -42,6 +43,8 @@ document.querySelector('.all-clear').onclick = () => {
     previousNum = 0;
     currentNum = 0;
 };
+
+
 
 
 document.querySelectorAll('.number').forEach(button => {
@@ -61,7 +64,7 @@ document.querySelectorAll('.number').forEach(button => {
 document.querySelectorAll('.operator').forEach(button => {
     button.onclick = () => {
         if (!lastPressed.classList.contains('operator')) {
-            
+
             if (previousOp.innerHTML != '') {
                 console.log(`${previousNum}, ${currentNum}`);
                 previousNum = operator(lastOperation, previousNum, currentNum);
@@ -72,12 +75,15 @@ document.querySelectorAll('.operator').forEach(button => {
                 previousNum = currentNum;
             }
             
-            //console.log(`${currentOp.innerHTML}, ${button.innerHTML}`);
             previousOp.innerHTML += currentNum + button.innerHTML;
 
-            
-            lastOperation = button.innerHTML;
-            lastPressed = button;
+        } else if (lastPressed.id == 'equal') {
+            console.log(`previousNum: ${previousNum}, currentNum: ${currentNum}`);
+            previousOp.innerHTML = previousNum + button.innerHTML;           
         }
+
+        lastOperation = button.innerHTML;
+        lastPressed = button;
     };
 });
+
