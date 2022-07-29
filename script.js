@@ -45,7 +45,12 @@ document.querySelector('.all-clear').onclick = () => {
 };
 
 
-
+document.querySelector('#plus-minus').onclick = () => {
+    if (currentOp.innerHTML != '') {
+        currentNum *= -1;
+        currentOp.innerHTML = currentNum;
+    }
+};
 
 document.querySelectorAll('.number').forEach(button => {
     button.onclick = () => {
