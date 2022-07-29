@@ -1,28 +1,12 @@
-function add(x, y) {
-    return x + y;
-}
-
-function subtract(x, y) {
-    return x - y;
-}
-
-function multiply(x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
-
 function operator(op, x, y) {
     if (op === '+') {
-        return add(x, y);
+        return x + y;
     } else if (op === '-') {
-        return subtract(x, y);
+        return x - y;
     } else if (op === 'X') {
-        return multiply(x, y);
+        return x * y;
     } else if (op === '/') {
-        return divide(x, y);
+        return x / y;
     }
 }
 
@@ -37,7 +21,7 @@ let previousNum = 0;
 let currentNum = 0;
 
 
-document.querySelector('.all-clear').onclick = () => {
+document.querySelector('#all-clear').onclick = () => {
     document.querySelector('.previous-op').innerHTML = '';
     currentOp.innerHTML = '';
     previousNum = 0;
@@ -68,9 +52,7 @@ document.querySelectorAll('.number').forEach(button => {
         } else {
             currentOp.innerHTML += button.innerHTML;
         }
-        // Change to parseFloat
         currentNum = parseFloat(currentOp.innerHTML);
-        //console.log(`currentNum: ${currentNum}`);
         lastPressed = button;
     };
 });
@@ -84,7 +66,6 @@ document.querySelectorAll('.operator').forEach(button => {
                 previousNum = operator(lastOperation, previousNum, currentNum);
 
                 console.log(previousNum);
-                //currentOp.innerHTML = previousNum;
                 currentOp.innerHTML = Math.round((previousNum + Number.EPSILON) * 100000) / 100000;
             } else {
                 previousNum = currentNum;
