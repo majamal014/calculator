@@ -44,6 +44,15 @@ document.querySelector('.all-clear').onclick = () => {
     currentNum = 0;
 };
 
+document.querySelector('#decimal').onclick = () => {
+    // check case where lastPressed was an operator
+
+    if (currentOp.innerHTML != '' && !currentOp.innerHTML.includes('.')) {
+        currentOp.innerHTML = `${currentNum}.`;
+    } else if (!currentOp.innerHTML.includes('.')) {
+        currentOp.innerHTML = '0.';
+    }
+};
 
 document.querySelector('#plus-minus').onclick = () => {
     if (currentOp.innerHTML != '') {
@@ -60,7 +69,7 @@ document.querySelectorAll('.number').forEach(button => {
             currentOp.innerHTML += button.innerHTML;
         }
         // Change to parseFloat
-        currentNum = parseInt(currentOp.innerHTML);
+        currentNum = parseFloat(currentOp.innerHTML);
         //console.log(`currentNum: ${currentNum}`);
         lastPressed = button;
     };
@@ -75,7 +84,8 @@ document.querySelectorAll('.operator').forEach(button => {
                 previousNum = operator(lastOperation, previousNum, currentNum);
 
                 console.log(previousNum);
-                currentOp.innerHTML = previousNum;
+                //currentOp.innerHTML = previousNum;
+                currentOp.innerHTML = Math.round((previousNum + Number.EPSILON) * 100000) / 100000;
             } else {
                 previousNum = currentNum;
             }
@@ -83,6 +93,8 @@ document.querySelectorAll('.operator').forEach(button => {
             previousOp.innerHTML += currentNum + button.innerHTML;
 
         } else if (lastPressed.id == 'equal') {
+            // disable number buttons
+
             console.log(`previousNum: ${previousNum}, currentNum: ${currentNum}`);
             previousOp.innerHTML = previousNum + button.innerHTML;           
         }
