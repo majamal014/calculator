@@ -28,18 +28,17 @@ function clear() {
     lastPressed = document.querySelector('#all-clear');
 }
 
-document.querySelector('#all-clear').onclick = clear;
+document.querySelector('#all-clear').addEventListener('click', clear);
 
-document.querySelector('#clear').onclick = () => {
+document.querySelector('#clear').addEventListener('click', () => {
     if (lastPressed.id == 'equal') {
         clear();
     } else {
         currentOp.innerHTML = currentOp.innerHTML.slice(0, currentOp.innerHTML.length - 1);
         currentNum = parseFloat(currentOp.innerHTML);
         lastPressed = document.querySelector('#clear');
-    }
-    
-};
+    }    
+});
 
 document.querySelector('#decimal').addEventListener('click', () => {
     if (currentOp.innerHTML != '' && !currentOp.innerHTML.includes('.') && lastPressed.id != 'equal') {
@@ -79,26 +78,16 @@ document.querySelectorAll('.number').forEach(button => {
 document.querySelectorAll('.operator').forEach(button => {
     button.addEventListener('click', () => {
         if (!lastPressed.classList.contains('operator')) {
-
             if (previousOp.innerHTML != '') {
-                console.log(`${previousNum}, ${currentNum}`);
                 previousNum = operator(lastOperation, previousNum, currentNum);
-
-                console.log(previousNum);
                 currentOp.innerHTML = Math.round((previousNum + Number.EPSILON) * 100000) / 100000;
             } else {
                 previousNum = currentNum;
             }
-            
             previousOp.innerHTML += currentNum + button.innerHTML;
-
         } else if (lastPressed.id == 'equal') {
-            // disable number buttons
-
-            console.log(`previousNum: ${previousNum}, currentNum: ${currentNum}`);
             previousOp.innerHTML = previousNum + button.innerHTML;           
         }
-
         lastOperation = button.innerHTML;
         lastPressed = button;
     });
