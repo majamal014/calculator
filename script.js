@@ -3,9 +3,9 @@ function operator(op, x, y) {
         return x + y;
     } else if (op === '-') {
         return x - y;
-    } else if (op === 'X') {
+    } else if (op === '×') {
         return x * y;
-    } else if (op === '/') {
+    } else if (op === '÷') {
         return x / y;
     }
 }
