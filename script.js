@@ -20,33 +20,52 @@ let lastOperation = undefined;
 let previousNum = 0;
 let currentNum = 0;
 
-
-document.querySelector('#all-clear').onclick = () => {
+function clear() {
     document.querySelector('.previous-op').innerHTML = '';
     currentOp.innerHTML = '';
     previousNum = 0;
     currentNum = 0;
+    lastPressed = document.querySelector('#all-clear');
+}
+
+document.querySelector('#all-clear').onclick = clear;
+
+document.querySelector('#clear').onclick = () => {
+    if (lastPressed.id == 'equal') {
+        clear();
+    } else {
+        currentOp.innerHTML = currentOp.innerHTML.slice(0, currentOp.innerHTML.length - 1);
+        currentNum = parseFloat(currentOp.innerHTML);
+        lastPressed = document.querySelector('#clear');
+    }
+    
 };
 
-document.querySelector('#decimal').onclick = () => {
-    // check case where lastPressed was an operator
-
+document.querySelector('#decimal').addEventListener('click', () => {
     if (currentOp.innerHTML != '' && !currentOp.innerHTML.includes('.')) {
-        currentOp.innerHTML = `${currentNum}.`;
+        
+        if (lastPressed.classList.contains('operator')) {
+            currentOp.innerHTML = '0.';
+        } else {
+            currentOp.innerHTML = `${currentNum}.`;
+        }
+        lastPressed = document.querySelector('#decimal');
+
     } else if (!currentOp.innerHTML.includes('.')) {
         currentOp.innerHTML = '0.';
+        lastPressed = document.querySelector('#decimal');
     }
-};
+});
 
-document.querySelector('#plus-minus').onclick = () => {
+document.querySelector('#plus-minus').addEventListener('click', () => {
     if (currentOp.innerHTML != '') {
         currentNum *= -1;
         currentOp.innerHTML = currentNum;
     }
-};
+});
 
 document.querySelectorAll('.number').forEach(button => {
-    button.onclick = () => {
+    button.addEventListener('click', () => {
         if (currentOp.innerHTML == '' || lastPressed.classList.contains('operator')) {
             currentOp.innerHTML = button.innerHTML;
         } else {
@@ -54,11 +73,11 @@ document.querySelectorAll('.number').forEach(button => {
         }
         currentNum = parseFloat(currentOp.innerHTML);
         lastPressed = button;
-    };
+    }); 
 });
 
 document.querySelectorAll('.operator').forEach(button => {
-    button.onclick = () => {
+    button.addEventListener('click', () => {
         if (!lastPressed.classList.contains('operator')) {
 
             if (previousOp.innerHTML != '') {
@@ -82,6 +101,6 @@ document.querySelectorAll('.operator').forEach(button => {
 
         lastOperation = button.innerHTML;
         lastPressed = button;
-    };
+    });
 });
 
