@@ -42,23 +42,21 @@ document.querySelector('#clear').onclick = () => {
 };
 
 document.querySelector('#decimal').addEventListener('click', () => {
-    if (currentOp.innerHTML != '' && !currentOp.innerHTML.includes('.')) {
-        
+    if (currentOp.innerHTML != '' && !currentOp.innerHTML.includes('.') && lastPressed.id != 'equal') {
         if (lastPressed.classList.contains('operator')) {
             currentOp.innerHTML = '0.';
         } else {
             currentOp.innerHTML = `${currentNum}.`;
         }
         lastPressed = document.querySelector('#decimal');
-
-    } else if (!currentOp.innerHTML.includes('.')) {
+    } else if (!currentOp.innerHTML.includes('.') && lastPressed.id != 'equal') {
         currentOp.innerHTML = '0.';
         lastPressed = document.querySelector('#decimal');
     }
 });
 
 document.querySelector('#plus-minus').addEventListener('click', () => {
-    if (currentOp.innerHTML != '') {
+    if (currentOp.innerHTML != '' && lastPressed.id != 'equal') {
         currentNum *= -1;
         currentOp.innerHTML = currentNum;
     }
@@ -66,13 +64,15 @@ document.querySelector('#plus-minus').addEventListener('click', () => {
 
 document.querySelectorAll('.number').forEach(button => {
     button.addEventListener('click', () => {
-        if (currentOp.innerHTML == '' || lastPressed.classList.contains('operator')) {
+        if ((currentOp.innerHTML == '' || lastPressed.classList.contains('operator')) && lastPressed.id != 'equal') {
             currentOp.innerHTML = button.innerHTML;
-        } else {
+            currentNum = parseFloat(currentOp.innerHTML);
+            lastPressed = button;
+        } else if (lastPressed.id != 'equal') {
             currentOp.innerHTML += button.innerHTML;
+            currentNum = parseFloat(currentOp.innerHTML);
+            lastPressed = button;
         }
-        currentNum = parseFloat(currentOp.innerHTML);
-        lastPressed = button;
     }); 
 });
 
