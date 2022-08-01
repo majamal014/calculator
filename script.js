@@ -98,7 +98,6 @@ document.querySelectorAll('.operator').forEach(button => {
                     button.disabled = true;
                 }
             });
-
         }
         lastOperation = button.innerHTML;
         lastPressed = button;
