@@ -23,6 +23,7 @@ let currentNum = 0;
 function clear() {
     document.querySelector('.previous-op').innerHTML = '';
     currentOp.innerHTML = '';
+    document.querySelectorAll('button').forEach(button => button.disabled = false);
     previousNum = 0;
     currentNum = 0;
     lastPressed = document.querySelector('#all-clear');
@@ -87,6 +88,17 @@ document.querySelectorAll('.operator').forEach(button => {
             previousOp.innerHTML += currentNum + button.innerHTML;
         } else if (lastPressed.id == 'equal') {
             previousOp.innerHTML = previousNum + button.innerHTML;           
+        }
+
+        // Check for division by zero
+        if (previousNum === Infinity) {
+            document.querySelector('.current-op').innerHTML = 'Error: Divide by 0';
+            document.querySelectorAll('button').forEach(button => {
+                if (button.id != 'all-clear' && button.id != 'clear') {
+                    button.disabled = true;
+                }
+            });
+
         }
         lastOperation = button.innerHTML;
         lastPressed = button;
